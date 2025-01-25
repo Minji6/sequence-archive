@@ -2,9 +2,11 @@ package com.sequence.demo.service;
 
 import com.sequence.demo.entity.Project;
 import com.sequence.demo.repository.ProjectRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ProjectService {
     private final ProjectRepository projectRepository;
 
@@ -31,5 +33,9 @@ public class ProjectService {
 
     public void deleteProject(int projectId) {
         projectRepository.deleteById(projectId);
+    }
+
+    public List<Project> getAllProjects() {
+        return projectRepository.findAll();
     }
 }

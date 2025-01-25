@@ -24,15 +24,15 @@ public class ProjectController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdProject);
     }
 
-    @PutMapping("/{projectID}")
-    public ResponseEntity<Project> updateProject(@PathVariable int projectID, @RequestBody Project project) {
-        Project updatedProject = projectService.updateProject(projectID, project);
+    @PutMapping("/{projectId}")
+    public ResponseEntity<Project> updateProject(@PathVariable int projectId, @RequestBody Project project) {
+        Project updatedProject = projectService.updateProject(projectId, project);
         return ResponseEntity.ok(updatedProject);
     }
 
     @DeleteMapping("/{projectId}")
-    public ResponseEntity<Void> deleteProject(@PathVariable int projectID) {
-        projectService.deleteProject(projectID);
+    public ResponseEntity<Void> deleteProject(@PathVariable int projectId) {
+        projectService.deleteProject(projectId);
         return ResponseEntity.noContent().build();
     }
 
