@@ -38,4 +38,17 @@ public class ProjectService {
     public List<Project> getAllProjects() {
         return projectRepository.findAll();
     }
+
+    public boolean isEvaluationComplete(int projectId) {
+        Project project = projectRepository.findById(projectId)
+                .orElseThrow(() -> new IllegalArgumentException("프로젝트를 찾을 수 없습니다."));
+        return project.getTeamEvaluations().stream().allMatch(evaluation -> evaluation.isCompleted());
+    }
+
+    public Project updateProjectStatus(int projectId, String status) {
+        Project project = projectRepository.findById(projectId)
+                .orElseThrow(() -> new IllegalArgumentException("프로젝트를 찾을 수 없습니다."));
+        project.setStatus(status);
+        return projectRepository.save(project);
+    }
 }

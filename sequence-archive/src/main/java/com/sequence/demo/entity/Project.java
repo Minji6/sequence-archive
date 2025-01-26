@@ -29,4 +29,15 @@ public class Project {
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     private List<ProjectLink> links;
+
+    @OneToOne(mappedBy = "teamEvaluation", cascade = CascadeType.ALL)
+    private TeamEvaluation teamEvaluation;
+
+    public TeamEvaluation getTeamEvaluation() {
+        return teamEvaluation;
+    }
+
+    public void setTeamEvaluation(TeamEvaluation teamEvaluation) {
+        this.teamEvaluation = teamEvaluation;
+    }
 }
