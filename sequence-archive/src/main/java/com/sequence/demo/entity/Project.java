@@ -2,11 +2,9 @@ package com.sequence.demo.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-<<<<<<< HEAD
 import lombok.ToString;
-=======
-import lombok.NoArgsConstructor;
->>>>>>> 796c8b149e8528178a3870c6089bac4f9ba66d8f
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -45,34 +43,34 @@ public class Project {
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
-    @ToString.Exclude
-    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
-<<<<<<< HEAD
+    @OneToMany
+    @JoinColumn(name = "project_id")
     private List<ProjectSkill> skills = new ArrayList<>();
 
-    @ToString.Exclude
-    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+    @OneToMany
+    @JoinColumn(name = "project_id")
     private List<ProjectImage> images = new ArrayList<>();
 
-    @ToString.Exclude
-    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+    @OneToMany
+    @JoinColumn(name = "project_id")
     private List<ProjectLink> links = new ArrayList<>();
 
-    @ToString.Exclude
-    @OneToOne(mappedBy = "project", cascade = CascadeType.ALL)
+    @OneToOne
+    @JoinColumn(name = "project_id")
     private ArchivedProject archivedProject;
-=======
-    private List<ProjectLink> links;
 
-    @OneToOne(mappedBy = "teamEvaluation", cascade = CascadeType.ALL)
-    private TeamEvaluation teamEvaluation;
+    @OneToMany
+    @JoinColumn(name = "project_id")
+    private List<TeamEvaluation> teamEvaluations = new ArrayList<>();
 
-    public TeamEvaluation getTeamEvaluation() {
-        return teamEvaluation;
+    @OneToMany(mappedBy = "project")
+    private List<ProjectMember> members = new ArrayList<>();
+
+    public List<TeamEvaluation> getTeamEvaluations() {
+        return teamEvaluations;
     }
 
-    public void setTeamEvaluation(TeamEvaluation teamEvaluation) {
-        this.teamEvaluation = teamEvaluation;
+    public void setTeamEvaluations(List<TeamEvaluation> teamEvaluations) {
+        this.teamEvaluations = teamEvaluations;
     }
->>>>>>> 796c8b149e8528178a3870c6089bac4f9ba66d8f
 }

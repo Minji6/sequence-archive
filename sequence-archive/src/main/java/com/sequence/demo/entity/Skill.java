@@ -6,7 +6,6 @@ import lombok.Data;
 @Entity
 @Data
 public class Skill {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int skillId;

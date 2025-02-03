@@ -127,4 +127,22 @@ public class ArchivedProjectController {
                     ));
         }
     }
+    /*
+    @PostMapping("/projects/{projectId}/archive")
+    public ResponseEntity<?> archiveProject(@PathVariable int projectId) {
+        try {
+            if (!projectService.isEvaluationComplete(projectId)) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                        .body(Map.of("message", "모든 팀원의 평가가 완료되어야 프로젝트를 등록할 수 있습니다."));
+            }
+            ArchivedProject archivedProject = archivedProjectService.archiveProject(projectId);
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(Map.of("message", "프로젝트가 성공적으로 아카이브에 등록되었습니다.",
+                                "data", archivedProject));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.notFound()
+                    .build();
+        }
+    }
+    */
 } 

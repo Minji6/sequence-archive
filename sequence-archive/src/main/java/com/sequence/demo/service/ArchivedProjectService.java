@@ -5,7 +5,10 @@ import com.sequence.demo.entity.ArchivedProject;
 import com.sequence.demo.entity.Project;
 import com.sequence.demo.entity.ProjectImage;
 import com.sequence.demo.entity.ProjectLink;
+import com.sequence.demo.entity.Skill;
 import com.sequence.demo.repository.ArchivedProjectRepository;
+import com.sequence.demo.repository.ProjectSkillRepository;
+import com.sequence.demo.repository.SkillRepository;
 import com.sequence.demo.type.SortType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,6 +20,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ArchivedProjectService {
     private final ArchivedProjectRepository archivedProjectRepository;
+    private final ProjectSkillRepository projectSkillRepository;
+    private final SkillRepository skillRepository;
 
     public List<ArchivedProjectResponseDto> getArchivedProjects() {
         return archivedProjectRepository.findAllDesc()
@@ -63,11 +68,17 @@ public class ArchivedProjectService {
         dto.setStatus(project.getStatus());
         dto.setThumbnailUrl(project.getThumbnailUrl());
         dto.setArchivedAt(archivedProject.getArchivedAt());
+        dto.setViewCount(archivedProject.getViewCount());
+        dto.setBookmarkCount(archivedProject.getBookmarkCount());
         
-        dto.setSkills(project.getSkills().stream()
-                .map(ps -> ps.getSkill().getName())
-                .collect(Collectors.toList()));
-                
+        List<String> skillNames = projectSkillRepository.findByProjectId(project.getProjectId())
+            .stream()
+            .map(ps -> skillRepository.findById(ps.getSkillId())
+                .map(Skill::getName)
+                .orElse(""))
+            .collect(Collectors.toList());
+        dto.setSkills(skillNames);
+        
         dto.setImageUrls(project.getImages().stream()
                 .map(ProjectImage::getImageUrl)
                 .collect(Collectors.toList()));

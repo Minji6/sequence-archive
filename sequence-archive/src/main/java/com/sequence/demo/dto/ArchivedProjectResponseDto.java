@@ -15,6 +15,8 @@ public class ArchivedProjectResponseDto {
     private String status;
     private String thumbnailUrl;
     private LocalDateTime archivedAt;
+    private int viewCount;
+    private int bookmarkCount;
     private List<String> skills;
     private List<String> imageUrls;
     private List<String> links;

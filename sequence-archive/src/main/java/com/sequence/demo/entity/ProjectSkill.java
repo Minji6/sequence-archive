@@ -11,11 +11,9 @@ public class ProjectSkill {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne
-    @JoinColumn(name = "project_id", nullable = false)
-    private Project project;
+    @Column(name = "project_id", nullable = false)
+    private int projectId;
 
-    @ManyToOne
-    @JoinColumn(name = "skill_id", nullable = false)
-    private Skill skill;
+    @Column(name = "skill_id", nullable = false)
+    private int skillId;
 }

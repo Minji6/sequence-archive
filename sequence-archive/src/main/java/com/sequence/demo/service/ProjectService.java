@@ -1,18 +1,19 @@
 package com.sequence.demo.service;
 
 import com.sequence.demo.entity.Project;
+import com.sequence.demo.entity.TeamEvaluation;
 import com.sequence.demo.repository.ProjectRepository;
+import com.sequence.demo.repository.TeamEvaluationRepository;
 import org.springframework.stereotype.Service;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ProjectService {
     private final ProjectRepository projectRepository;
-
-    public ProjectService(ProjectRepository projectRepository) {
-        this.projectRepository = projectRepository;
-    }
+    private final TeamEvaluationRepository teamEvaluationRepository;
 
     public Project createProject(Project project) {
         return projectRepository.save(project);
@@ -42,7 +43,8 @@ public class ProjectService {
     public boolean isEvaluationComplete(int projectId) {
         Project project = projectRepository.findById(projectId)
                 .orElseThrow(() -> new IllegalArgumentException("프로젝트를 찾을 수 없습니다."));
-        return project.getTeamEvaluations().stream().allMatch(evaluation -> evaluation.isCompleted());
+        return project.getTeamEvaluations().stream()
+                .allMatch(TeamEvaluation::isEvaluationStatus);
     }
 
     public Project updateProjectStatus(int projectId, String status) {

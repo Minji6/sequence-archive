@@ -14,7 +14,6 @@ public class ProjectImage {
     @Column(nullable = false)
     private String imageUrl;
 
-    @ManyToOne
-    @JoinColumn(name = "project_id", nullable = false)
-    private Project project;
+    @Column(name = "project_id", nullable = false)
+    private int projectId;  // Project 엔티티 대신 projectId만 저장
 }
