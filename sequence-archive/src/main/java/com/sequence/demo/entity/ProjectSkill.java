@@ -9,7 +9,7 @@ public class ProjectSkill {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int skillId;
+    private int id;
 
     @ManyToOne
     @JoinColumn(name = "project_id", nullable = false)
