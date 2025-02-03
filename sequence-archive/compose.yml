@@ -1,0 +1,26 @@
+services:
+  mariadb:
+    image: mariadb:latest
+    container_name: archive-mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: sequence
+      MYSQL_USER: sequence
+      MYSQL_PASSWORD: sequence
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: archive-phpmyadmin
+    environment:
+      PMA_HOST: mariadb   # 기본적으로 mariadb에 연결
+      PMA_HOSTS: mariadb # mariadb
+      PMA_USER: sequence
+      PMA_PASSWORD: sequence
+      MYSQL_ROOT_PASSWORD: 1234  # MariaDB root 비밀번호
+    ports:
+      - "9009:80"  # phpMyAdmin에 접속하는 포트 (브라우저에서 http://localhost:9009 사용)
+    depends_on:
+      - mariadb
